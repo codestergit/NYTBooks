@@ -8,7 +8,7 @@
 
 import Foundation
 
-// Base Protocol provides basic functionality
+// Protocol to provide basic functionality of for network services.
 protocol NetworkService {
     associatedtype ResponseType: Decodable
     var url: URL { get }
@@ -19,6 +19,7 @@ protocol NetworkService {
     func isSuccess(response: HTTPURLResponse) -> Bool
 }
 
+// Default extensions to provide fetch date from server
 extension NetworkService {
     func fetchData() -> Observer<ResponseStatus<ResponseType, NetworkError>> {
         let responseStatus = Observer(ResponseStatus<ResponseType, NetworkError>.loading)
@@ -34,7 +35,12 @@ extension NetworkService {
                     responseStatus.value = .failure(error: NetworkError.unsupportedProtocol(error: error, resonse: response))
                     return
                 }
-                print(String(data: data, encoding: String.Encoding.utf8) ?? "No data")
+                do {
+                    let model = try JSONDecoder().decode(ResponseType.self, from: data)
+                    responseStatus.value = .success(value: model)
+                } catch {
+                    responseStatus.value = .failure(error: NetworkError.decodableError(error: error, resonse: response, decodable: ResponseType.self))
+                }
             } else {
                 responseStatus.value = .failure(error: NetworkError.unkown(error: error, resonse: response))
             }
@@ -50,6 +56,7 @@ extension NetworkService {
     
 }
 
+// MARK: Error Handling
 enum NetworkError: LocalizedError {
     case unsupportedProtocol(error: Error?, resonse: URLResponse?)
     case decodableError(error: Error?, resonse: URLResponse?, decodable: Decodable.Type)

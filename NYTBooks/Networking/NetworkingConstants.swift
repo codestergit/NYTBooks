@@ -12,6 +12,7 @@ struct NetworkingConstants {
     static let baseURL = "https://api.nytimes.com"
     static let apiKey = "76363c9e70bc401bac1e6ad88b13bd1d"
     
+    // endpoints to add to service urls.
     enum EndPoint: String {
         case bookList = "/svc/books/v2/lists/overview.json"
     }

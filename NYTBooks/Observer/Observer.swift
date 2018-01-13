@@ -8,6 +8,7 @@
 
 import Foundation
 
+// This class provide the functionality to observe and bind the data.
 class Observer<T> {
     typealias Listener = (T) -> ()
     var listener: Listener?

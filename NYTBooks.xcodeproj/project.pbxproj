@@ -19,6 +19,7 @@
 		C32F57892009B6A600A8A11A /* NYTBookService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32F57882009B6A600A8A11A /* NYTBookService.swift */; };
 		C32F578B2009BCD200A8A11A /* NetworkingConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32F578A2009BCD200A8A11A /* NetworkingConstants.swift */; };
 		C32F578D2009C01400A8A11A /* NetworkService+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32F578C2009C01400A8A11A /* NetworkService+Helpers.swift */; };
+		C32F57C9200A1F8100A8A11A /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32F57C8200A1F8100A8A11A /* Book.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		C32F57882009B6A600A8A11A /* NYTBookService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NYTBookService.swift; sourceTree = "<group>"; };
 		C32F578A2009BCD200A8A11A /* NetworkingConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingConstants.swift; sourceTree = "<group>"; };
 		C32F578C2009C01400A8A11A /* NetworkService+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkService+Helpers.swift"; sourceTree = "<group>"; };
+		C32F57C8200A1F8100A8A11A /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,10 +159,9 @@
 		C32F577F2009AA8300A8A11A /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				C32F57832009B15D00A8A11A /* NetworkService.swift */,
+				C32F57CA200A1F8C00A8A11A /* Generic */,
 				C32F57882009B6A600A8A11A /* NYTBookService.swift */,
 				C32F578A2009BCD200A8A11A /* NetworkingConstants.swift */,
-				C32F578C2009C01400A8A11A /* NetworkService+Helpers.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -168,6 +169,7 @@
 		C32F57802009AA8A00A8A11A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C32F57C8200A1F8100A8A11A /* Book.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -178,6 +180,15 @@
 				C32F57862009B20F00A8A11A /* Observer.swift */,
 			);
 			path = Observer;
+			sourceTree = "<group>";
+		};
+		C32F57CA200A1F8C00A8A11A /* Generic */ = {
+			isa = PBXGroup;
+			children = (
+				C32F57832009B15D00A8A11A /* NetworkService.swift */,
+				C32F578C2009C01400A8A11A /* NetworkService+Helpers.swift */,
+			);
+			path = Generic;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -314,6 +325,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C32F57C9200A1F8100A8A11A /* Book.swift in Sources */,
 				C32F57522009AA5C00A8A11A /* ViewController.swift in Sources */,
 				C32F57892009B6A600A8A11A /* NYTBookService.swift in Sources */,
 				C32F578D2009C01400A8A11A /* NetworkService+Helpers.swift in Sources */,
