@@ -12,6 +12,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        NYTBookService.requestBooks(publishDate: "2018-01-13").fetchBooks()
         // Do any additional setup after loading the view, typically from a nib.
     }
 
