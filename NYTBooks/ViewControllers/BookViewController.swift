@@ -8,7 +8,6 @@
 
 import UIKit
 
-import UIKit
 class BookViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var changeDate: UIBarButtonItem!
@@ -52,8 +51,11 @@ class BookViewController: UIViewController {
     }
     
     @IBAction func changeDate(_ sender: UIBarButtonItem) {
+        let datePicker = DatePickerView.showOn(view: self.view, animated: true)
+        datePicker.delegate = self
+        changeDate.isEnabled = false
     }
-    
+
     
     func refreshData(state: BookViewModel.UIState) {
         tableView.reloadData()
@@ -108,3 +110,13 @@ extension BookViewController: UITableViewDataSource {
     }
 }
 
+extension BookViewController: DatePickerViewDelegate {
+    func dateDidSelected(date: Date) {
+        changeDate.isEnabled = true
+        viewModel.changeDate(date: date)
+    }
+    
+    func dateSelectionCancel() {
+        changeDate.isEnabled = true
+    }
+}

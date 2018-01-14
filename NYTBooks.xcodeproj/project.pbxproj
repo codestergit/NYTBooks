@@ -23,6 +23,7 @@
 		C32F57CC200A644F00A8A11A /* BookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32F57CB200A644F00A8A11A /* BookViewModel.swift */; };
 		C32F57CE200A64AE00A8A11A /* BookViewModelable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32F57CD200A64AE00A8A11A /* BookViewModelable.swift */; };
 		C32F57D1200A660E00A8A11A /* BookCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32F57D0200A660E00A8A11A /* BookCell.swift */; };
+		C32F57D3200B495700A8A11A /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32F57D2200B495700A8A11A /* DatePickerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		C32F57CB200A644F00A8A11A /* BookViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookViewModel.swift; sourceTree = "<group>"; };
 		C32F57CD200A64AE00A8A11A /* BookViewModelable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookViewModelable.swift; sourceTree = "<group>"; };
 		C32F57D0200A660E00A8A11A /* BookCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookCell.swift; sourceTree = "<group>"; };
+		C32F57D2200B495700A8A11A /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				C32F57D0200A660E00A8A11A /* BookCell.swift */,
+				C32F57D2200B495700A8A11A /* DatePickerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -348,6 +351,7 @@
 				C32F57892009B6A600A8A11A /* NYTBookService.swift in Sources */,
 				C32F578D2009C01400A8A11A /* NetworkService+Helpers.swift in Sources */,
 				C32F57872009B20F00A8A11A /* Observer.swift in Sources */,
+				C32F57D3200B495700A8A11A /* DatePickerView.swift in Sources */,
 				C32F57CC200A644F00A8A11A /* BookViewModel.swift in Sources */,
 				C32F57842009B15D00A8A11A /* NetworkService.swift in Sources */,
 				C32F57CE200A64AE00A8A11A /* BookViewModelable.swift in Sources */,
