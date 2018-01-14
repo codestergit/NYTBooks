@@ -19,7 +19,14 @@ extension ViewModelable {
 
 protocol BookViewModelable: ViewModelable {
     var state: Observer<BookViewModel.UIState> { get }
-   
+    func changeDate(date: Date)
+    
+    func exitSearch()
+    func search(keyword: String)
+
+    
     func numberOfRowsInSection(section: Int) -> Int
     func book(for indexPath: IndexPath) -> Book?
+    func sectionCountForState() -> Int
+    func sectionTitle(for section: Int) -> String?
 }

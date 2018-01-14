@@ -29,8 +29,10 @@ class BookViewModel: BookViewModelable {
     
     enum UIState {
         case displayBooks(books: [Book])
+        case search(books: [[Book]])
         case nobooks(error: UIError) // Change it to enum
         case loading(message: String)
+        case searchingBooks(message: String)
     }
 
     private struct Formatter {
@@ -49,7 +51,7 @@ class BookViewModel: BookViewModelable {
         fetchBooks(for: Date())
     }
     
-    func fetchBooks(for date: Date) {
+    private func fetchBooks(for date: Date) {
         let date = Formatter.dateFormatter.string(from: date)
         NYTBookService.requestBooks(publishDate: date).fetchBooks().bindAndFire { [unowned self] (responseStauts) in
             DispatchQueue.main.async {
@@ -80,14 +82,67 @@ extension BookViewModel {
     }
 }
 
-
 extension BookViewModel {
-    func numberOfRowsInSection(section: Int) -> Int {
-         return books.count
+    func search(keyword: String) {
+        self.state.value = .searchingBooks(message: "Searching Books...")
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            var titleBooks: [Book] = [], publisherBooks: [Book] = [], descriptionBooks: [Book] = []
+            self?.books.forEach { (book) in
+                if book.title.localizedCaseInsensitiveContains(keyword) {
+                    titleBooks.append(book)
+                } else if book.publisher.localizedCaseInsensitiveContains(keyword) {
+                    publisherBooks.append(book)
+                } else if book.description.localizedCaseInsensitiveContains(keyword) {
+                    descriptionBooks.append(book)
+                }
+            }
+            
+            DispatchQueue.main.async { [weak self] in
+                self?.state.value = .search(books:[titleBooks, publisherBooks, descriptionBooks])
+            }
+        }
     }
     
-    func book(for indexPath: IndexPath) -> Book? {
-        return books[indexPath.row]
+    func exitSearch() {
+        state.value = .displayBooks(books: books)
     }
 }
 
+extension BookViewModel {
+    func sectionCountForState() -> Int {
+        if case .displayBooks = state.value {
+            return 1
+        } else if case .search(let books) = state.value {
+            return books.count
+        }
+        return 0
+    }
+    
+    func numberOfRowsInSection(section: Int) -> Int {
+        if case .displayBooks(let books) = state.value {
+            return books.count
+        } else if case .search(let books) = state.value {
+            return books[section].count
+        }
+        return 0
+    }
+    
+    func book(for indexPath: IndexPath) -> Book? {
+        if case .displayBooks(let books) = state.value {
+            return books[indexPath.row]
+        } else if case .search(let books) = state.value {
+            return books[indexPath.section][indexPath.row]
+        }
+        return nil
+    }
+    
+    func sectionTitle(for section: Int) -> String? {
+        if case .search(let books) = state.value {
+            var sectionsTitles = ["Title", "Publisher", "Description"]
+            if books[section].count > 0 {
+                return "Found in " + sectionsTitles[section]
+            }
+        }
+        return nil
+    }
+}

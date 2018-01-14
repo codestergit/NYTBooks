@@ -8,22 +8,22 @@
 
 import UIKit
 
+import UIKit
 class BookViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var changeDate: UIBarButtonItem!
-
+    
     private lazy var searchController: UISearchController = {
         let controller = UISearchController(searchResultsController: nil)
         controller.searchResultsUpdater = self
         controller.obscuresBackgroundDuringPresentation = false
         controller.searchBar.placeholder = "Search Books"
         controller.searchBar.delegate = self
-        controller.searchBar.tintColor = UIColor.white
         controller.hidesNavigationBarDuringPresentation = false
         return controller
     }()
     
-    private var viewModel: BookViewModelable! = nil {
+    private var viewModel: BookViewModel! = nil {
         didSet {
             bindValues()
         }
@@ -50,18 +50,44 @@ class BookViewController: UIViewController {
             self.refreshData(state: state)
         }
     }
-
+    
     @IBAction func changeDate(_ sender: UIBarButtonItem) {
     }
-
+    
+    
     func refreshData(state: BookViewModel.UIState) {
         tableView.reloadData()
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
 }
 
 
-extension BookViewController: UITableViewDataSource {
+extension BookViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let searchText = searchController.searchBar.text, searchText.count > 0 else {
+            viewModel?.exitSearch()
+            return
+        }
+        viewModel.search(keyword: searchText)
+    }
+}
 
+extension BookViewController: UISearchBarDelegate {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        viewModel?.exitSearch()
+    }
+}
+
+extension BookViewController: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return viewModel?.sectionCountForState() ?? 0
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel?.numberOfRowsInSection(section: section) ?? 0
     }
@@ -76,15 +102,9 @@ extension BookViewController: UITableViewDataSource {
         cell.setupBookCell(book: book)
         return cell
     }
-}
-
-extension BookViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-    }
-}
-
-extension BookViewController: UISearchBarDelegate {
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return viewModel?.sectionTitle(for: section)
     }
 }
 
