@@ -1,5 +1,7 @@
 # NYTBooks
 
+![alt text](https://media.giphy.com/media/3o6nVax06Y6XPGUVVe/giphy.gif)
+
 
 ## Environment
 
