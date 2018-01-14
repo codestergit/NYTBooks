@@ -71,7 +71,7 @@ BookViewModel provides the tableview rendering logic and search logic. It notifi
 
 #### [BookViewModelable](https://github.com/codestergit/NYTBooks/blob/master/NYTBooks/ViewModels/BookViewModelable.swift)
 
-`BookViewModelable` is protovol which provides inteface to intreact with `BookViewController`.
+`BookViewModelable` is protocol which provides inteface to intreact with `BookViewController`.
 
 
 
