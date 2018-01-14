@@ -84,10 +84,19 @@ extension BookViewModel {
 
 extension BookViewModel {
     func search(keyword: String) {
+        if case .search(let filterBooks) = state.value {
+            if let previousSearchWord = previousSearchWord, previousSearchWord.count < keyword.count, keyword.starts(with: previousSearchWord) {
+                search(filterationBooks: filterBooks.flatMap { $0 }, keyword: keyword)
+            }
+        }
+        search(filterationBooks: books, keyword: keyword)
+    }
+    
+    func search(filterationBooks: [Book], keyword: String) {
         self.state.value = .searchingBooks(message: "Searching Books...")
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
             var titleBooks: [Book] = [], publisherBooks: [Book] = [], descriptionBooks: [Book] = []
-            self?.books.forEach { (book) in
+            filterationBooks.forEach { (book) in
                 if book.title.localizedCaseInsensitiveContains(keyword) {
                     titleBooks.append(book)
                 } else if book.publisher.localizedCaseInsensitiveContains(keyword) {
@@ -97,16 +106,19 @@ extension BookViewModel {
                 }
             }
             
-            DispatchQueue.main.async { [weak self] in
+            DispatchQueue.main.async {
                 self?.state.value = .search(books:[titleBooks, publisherBooks, descriptionBooks])
+                self?.previousSearchWord = keyword
             }
         }
     }
     
     func exitSearch() {
+        self.previousSearchWord = nil
         state.value = .displayBooks(books: books)
     }
 }
+
 
 extension BookViewModel {
     func sectionCountForState() -> Int {
