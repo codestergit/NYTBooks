@@ -50,7 +50,10 @@ class BookViewModel: BookViewModelable {
     init() {
         fetchBooks(for: Date())
     }
-    
+}
+
+// MARK: API request
+extension BookViewModel {
     private func fetchBooks(for date: Date) {
         let date = Formatter.dateFormatter.string(from: date)
         NYTBookService.requestBooks(publishDate: date).fetchBooks().bindAndFire { [unowned self] (responseStauts) in
@@ -76,12 +79,14 @@ class BookViewModel: BookViewModelable {
     }
 }
 
+// MARK: Date handling
 extension BookViewModel {
     func changeDate(date: Date) {
         fetchBooks(for: date)
     }
 }
 
+// MARK: Search Functionality
 extension BookViewModel {
     func search(keyword: String) {
         if case .search(let filterBooks) = state.value {
@@ -119,7 +124,7 @@ extension BookViewModel {
     }
 }
 
-
+// MARK: TableView endpoints
 extension BookViewModel {
     func sectionCountForState() -> Int {
         if case .displayBooks = state.value {

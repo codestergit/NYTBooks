@@ -81,6 +81,7 @@ enum NetworkError: LocalizedError {
     }
 }
 
+// MARK: Request and Response
 enum ResponseStatus<T, E> {
     case failure(error: E) // We can make this Error
     case success(value: T)

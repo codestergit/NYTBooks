@@ -15,10 +15,10 @@ class BookCell: UITableViewCell {
 }
 
 extension BookCell {
-    func setupBookCell(book: Book) {
+    func setupBookCell(book: Book, keyword: String? = nil) {
         self.lblTitle.text = book.title
-        self.lblPublisher.text = book.publisher
-        self.lblDescription.text = book.description
+        self.lblPublisher.text = (book.publisher.count > 0) ? "By " + book.publisher : ""
+        self.lblDescription.text = (book.description.count > 0) ? book.description : "No Description."
     }
 }
 

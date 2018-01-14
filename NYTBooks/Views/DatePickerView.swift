@@ -17,7 +17,6 @@ class DatePickerView: UIView {
     private lazy var datePicker: UIDatePicker = {
         let picker = UIDatePicker()
         picker.datePickerMode = .date
-        picker.maximumDate =  Date()
         self.addSubview(picker)
         return picker
     }()
